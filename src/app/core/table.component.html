@@ -1,0 +1,63 @@
+
+<div class="row m-1">
+  <div class="btn-group btn-group-justified">
+    <button class="btn btn-secondary btn-lg "
+            routerLink="/table" routerLinkActive="bg-primary"
+            [routerLinkActiveOptions]="{exact: true}">
+      Todo
+    </button>
+
+
+
+    <button *ngFor="let estado of estados"
+            class="btn btn-secondary btn-lg"
+            [routerLink]="['/table', estado]"
+            routerLinkActive="bg-primary">
+      {{estado}}
+    </button>
+  </div>
+</div>
+<div class="row m-1">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <table class="table table-dark table-sm table-bordered table-striped ">
+      <thead>
+        <tr><th>Nombre</th><th>Categoria</th><th>Descripcion</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of getTareas()">
+          <td style="vertical-align:middle">{{item.nombre}}</td>
+          <td style="vertical-align:middle">{{item.categoria}}</td>
+          <td style="vertical-align:middle">{{item.descripcion }}</td>
+          <td class="text-center">
+            <div *ngIf="item.estado=='Pendiente'">
+              <button class="btn btn-danger" (click)="updateTarea(item)">
+                {{item.estado}}
+              </button>
+            </div>
+            <div *ngIf="item.estado=='En Proceso'">
+              <button class="btn btn-warning" (click)="updateTarea(item)">
+                {{item.estado}}
+              </button>
+            </div>
+            <div *ngIf="item.estado=='Completado'">
+              <button class="btn btn-success" (click)="deleteTarea(item.id)">
+                {{item.estado}}
+              </button>
+            </div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+<div class="row">
+  <div class="col-5"></div>
+  <div class="col-2">
+    <button class="btn btn-primary "
+            routerLink="/form">
+      Nueva Tarea
+    </button>
+  </div>
+  </div>
